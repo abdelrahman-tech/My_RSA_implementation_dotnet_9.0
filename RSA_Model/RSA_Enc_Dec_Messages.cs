@@ -126,8 +126,7 @@ namespace Rsa_Model
                         BigInteger encryptedMessageAsNumber = Encrypt(message, publicKey, n);
                         string encryptedMessageAsTxt = NumberToText(encryptedMessageAsNumber);
 
-                        System.Console.WriteLine("THE ENCRYPTED MESSAGE:");
-                        System.Console.WriteLine(encryptedMessageAsTxt);
+                        TxTFileManager.Create("THE ENCRYPTED MESSAGE (text):\n" + encryptedMessageAsTxt + "\n\nTHE ENCRYPTED MESSAGE (integer):\n" + encryptedMessageAsNumber);
 
                         Reset();
                         Console.ReadLine();
@@ -175,6 +174,7 @@ namespace Rsa_Model
                     string encryptedMessageAsTxt = NumberToText(encryptedMessageAsNumber);
 
                     TxTFileManager.Create($"\nPublic Exponent:\n{publicKey[0]}\n\nModulus:\n{publicKey[1]}\n" + "THE ENCRYPTED MESSAGE:\n" + encryptedMessageAsTxt);
+                    
                     Reset();
 
                     System.Console.WriteLine("Do you need the private key?\n[YES: y]\t[NO: n]: ");
@@ -409,3 +409,4 @@ namespace Rsa_Model
     }
 
 }
+
