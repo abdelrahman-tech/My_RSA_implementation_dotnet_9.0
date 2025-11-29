@@ -2,10 +2,15 @@ using System.Numerics;
 using System.Text; 
 using System;
 
-//I LEFT SOME OF THE OLD BUGGY CODE THAT I TRIED TO USE SO THAT ANY OBSERVER CAN SEE HOW I THOUGHT AT THE FIRST WHILE I TRIED BUILDING THE PROGRAM.
-
 namespace Rsa_Model
 {
+    /// <summary>
+    /// Encrypt a UTF-8 TXT
+    /// Decrypt an encrypted message after getting it as an integer
+    /// Transform the UTF-8 TXT into BigInteger type
+    /// Transfom Transform BigInteger into UTF-8 TXT
+    /// Reset all the variables
+    /// </summary>
     class EncryptAndDecrypt
     {
         // p & q are primes
@@ -61,8 +66,6 @@ namespace Rsa_Model
                 string encryptedMessageText = NumberToText(encryptedMessage);
                 string message = NumberToText(Decrypt(encryptedMessage, privateKey));
             
-                //System.Console.WriteLine($"The message: {plainMessage}\nThe Public Key: ({publicKey[0]}, {publicKey[1]})\nThe Private Key: ({privateKey[0]}, {privateKey[1]})\n");
-                //System.Console.WriteLine($"The Encrypted message:\nAs a text:{encryptedMessageText}\nAs a number: {encryptedMessage}\n\nThe Decrypted message: {message}"); 
                 TxTFileManager.Create($"The message: {plainMessage}\nThe Public Key: ({publicKey[0]}, {publicKey[1]})\nThe Private Key: ({privateKey[0]}, {privateKey[1]})\n\n" + $"The Encrypted message:\nAs a text:{encryptedMessageText}\nAs a number: {encryptedMessage}\n\nThe Decrypted message: {message}");
             }
             catch (DivideByZeroException)
@@ -89,7 +92,6 @@ namespace Rsa_Model
             Console.Clear();
 
             System.Console.Write("WELCOME TO MY RSA ENCRYPTION PROGRAM\n\nENTER YOUR MESSAGE");
-            //string message = Console.ReadLine() ?? "";
             string message = TxTFileManager.GetTheInputInTextEditor();
 
             System.Console.Write("\nDo you have a public key?\n[YES: y]\t[NO: n]: ");
@@ -169,13 +171,8 @@ namespace Rsa_Model
                     publicKey[0] = e;
                     publicKey[1] = n;
 
-                    //System.Console.WriteLine($"\nPublic Exponent:\n{publicKey[0]}\n\nModulus:\n{publicKey[1]}\n");
-
                     BigInteger encryptedMessageAsNumber = Encrypt(message, publicKey, n);
                     string encryptedMessageAsTxt = NumberToText(encryptedMessageAsNumber);
-
-                    //System.Console.WriteLine("THE ENCRYPTED MESSAGE:");
-                    //System.Console.WriteLine(encryptedMessageAsTxt);
 
                     TxTFileManager.Create($"\nPublic Exponent:\n{publicKey[0]}\n\nModulus:\n{publicKey[1]}\n" + "THE ENCRYPTED MESSAGE:\n" + encryptedMessageAsTxt);
                     Reset();
@@ -219,7 +216,6 @@ namespace Rsa_Model
         {
             Console.Clear();
             System.Console.WriteLine("WELCOME TO MY RSA PROGRAM\n\nENTER YOUR ENCRYPTED MESSAGE AS A NUMBER");
-            //string encryptedMessage = Console.ReadLine() ?? "";
             BigInteger encryptedMessage = BigInteger.Parse(TxTFileManager.GetTheInputInTextEditor());
 
             System.Console.WriteLine("ENTER THE PRIVATE EXPONENT: ");
@@ -236,10 +232,7 @@ namespace Rsa_Model
                 {
                     privateKey[0] = d;
                     privateKey[1] = n;
-
-                    // System.Console.WriteLine("THE DECRYPTED MESSAGE:");
-                    // System.Console.WriteLine(NumberToText(Decrypt(TextToNumber(encryptedMessage), privateKey)));
-
+                    
                     TxTFileManager.Create("THE DECRYPTED MESSAGE:\n" + NumberToText(Decrypt(encryptedMessage, privateKey)));
 
                     Reset();
@@ -414,4 +407,5 @@ namespace Rsa_Model
             privateKey[1] = 0;
         }
     }
+
 }
