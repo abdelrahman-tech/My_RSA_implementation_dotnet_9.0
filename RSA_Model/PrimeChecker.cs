@@ -3,6 +3,15 @@ using System;
 
 namespace Rsa_Model
 {
+    /// <summary>
+    /// PrimesAndExponents:
+    ///     Prime: Return a prime number with the bit size that was chosen
+    ///     PublicExp: Return the Public Exponent e
+    ///     IsGcdOne: Checks if the gcd for a and b is one
+    ///     ModInverse: Returns the Inverse of n with respect to modNumber as a modulus
+    ///PrimeChecker:
+    ///     MillerTest: Checks for the primality of maybePrime and runs the test k times
+    /// </summary>
     internal class PrimesAndExponents : PrimeChecker
     {
         internal static BigInteger Prime(int size, int accuracy)
@@ -86,19 +95,6 @@ namespace Rsa_Model
     }
     internal class PrimeChecker
     {
-        // public static BigInteger Prime(int size, int accuracy)
-        // {
-        //     BigInteger x = Generator.RandomUsingBitLength(size);
-        //     bool isPrime = MillerTest(x, accuracy);
-
-        //     while (!isPrime)
-        //     {
-        //         x = Generator.RandomUsingBitLength(size);
-        //         isPrime = MillerTest(x, accuracy);
-        //     }
-
-        //     return x;
-        // }
         protected static bool MillerTest(BigInteger maybePrime, int k)
         {
             //The test's pseudocode was brought from wikipedia
@@ -146,4 +142,5 @@ namespace Rsa_Model
             return true;
         }
     }
+
 }
